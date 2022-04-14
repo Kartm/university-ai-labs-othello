@@ -2,9 +2,12 @@
 import java.util.Scanner;
 
 public class Test {
+	// todo make sure game code is valid
+		// todo doesnt flip
 	// todo add moving without alpha-beta prunning
 	// todo add my heuristics
 	// todo add benchmark
+	// todo better GUI
 
 	public static void main(String args[]) {
 		
@@ -20,7 +23,7 @@ public class Test {
 			  + "      using the feature number of disks adjacent to empty squares.\n"
 			  + "3. WeightedSquaresPlayer, heuristic: \n"
 			  + "      using the feature weighted squares value for one player.\n"
-			  + "5. PotentialMobilityPlayer, heuristic: \n"
+			  + "4. PotentialMobilityPlayer, heuristic: \n"
 			  + "      combine two features: number of frontier discs \n"
 			  +	"        and number of empty discs adjacent to the opponent's discs.\n"
 			  + "\n";
