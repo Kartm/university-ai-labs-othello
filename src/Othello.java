@@ -155,7 +155,7 @@ public class Othello {
 	public boolean wouldFlip(BoardField player, int r, int c, int dir) {
 		int row = r, col = c;
 		boolean flag = false;
-		for(int i=0; i<8; i++) {// todo why this loop
+		for(int i=0; i<8; i++) {// in every direction 8 times
 			// row is -1
 			row+=dirR[dir];
 			col+=dirC[dir];
