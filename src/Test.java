@@ -16,7 +16,7 @@ public class Test {
 		boolean flag = true;
 		String astr = "";
 		
-		astr += "\nPlease choose the following number to specify the players: \n" 
+		astr += "\nChoose the players. Available options: \n"
 			  + "1. HumanPlayer\n"
 			  + "2. FrontierDisksPlayer, heuristic: \n"
 			  + "      using the feature number of disks adjacent to empty squares.\n"
@@ -78,6 +78,6 @@ public class Test {
 	
 		Othello game = new Othello();
 		
-		game.playOneGame(p1, p2); //begin to play the game.
+		game.play(p1, p2); //begin to play the game.
 	}
 }

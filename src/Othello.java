@@ -321,7 +321,7 @@ public class Othello {
 	 * @param p1 A Player object that will be player 1
 	 * @param p2 A Player object that will be player 2
 	 */
-	public void playOneGame(Player p1, Player p2) {
+	public void play(Player p1, Player p2) {
 		p1.initialize('b');
 		p2.initialize('w');
 		char currentMove = 'b';
