@@ -2,6 +2,9 @@
 import java.util.Scanner;
 
 public class Test {
+	// todo add moving without alpha-beta prunning
+	// todo add my heuristics
+	// todo add benchmark
 
 	public static void main(String args[]) {
 		
@@ -73,6 +76,6 @@ public class Test {
 	
 		Othello game = new Othello();
 		
-		game.playOneGame(p1, p2, true); //begin to play the game.
+		game.playOneGame(p1, p2); //begin to play the game.
 	}
 }
