@@ -24,6 +24,9 @@ public class Othello {
 	private static final int size = 8;
 	private char[][] cBoard;
 	public static String newline = System.getProperty("line.separator");
+
+	private static final int[] dirR = {-1,1,0,0,1,-1,1,-1};
+	private static final int[] dirC = {0,0,1,-1,1,-1,-1,1};
 	
 	/**
 	 * Blank class constructor.
@@ -133,14 +136,13 @@ public class Othello {
 	 * This calculates the number of the parameter specified player adjacent to empty squares.
 	 */
 	public int frontierDisks(char player) {
-		int[] dirI = {-1,1,0,0,1,-1,1,-1};
-		int[] dirJ = {0,0,1,-1,1,-1,-1,1};
+		
 		int sum = 0;
 		for(int i=1; i<=size; i++) 
 			for(int j=1; j<=size; j++) {
 				if(cBoard[i][j] == player) {
 					for(int k=0; k<8; k++)
-						if(cBoard[i+dirI[k]][j+dirJ[k]] == '.'){
+						if(cBoard[i+dirR[k]][j+dirC[k]] == '.'){
 							sum++;
 							break;
 						}
@@ -167,20 +169,17 @@ public class Othello {
 	
 	/**
 	 * check whether this move would result in any flips in this direction.
-	 * if so, return the square number(r*10+c) of the bracket piece, otherwise return 0.
 	 * @param player the current player who is making this move
 	 * @param r the row number of the move square
 	 * @param c the column of the move square
 	 * @param dir the direction that we are checking
 	 */
 	public boolean wouldFlip(char player, int r, int c, int dir) {
-		int[] dirI = {-1,1,0,0,1,-1,1,-1};
-		int[] dirJ = {0,0,1,-1,1,-1,-1,1};
 		int row = r, col = c;
 		boolean flag = false;
 		for(int i=0; i<8; i++) {
-			row+=dirI[dir];
-			col+=dirJ[dir];
+			row+=dirR[dir];
+			col+=dirC[dir];
 			if(cBoard[row][col] == opponent(player)){
 				flag = true;
 			}
@@ -200,15 +199,13 @@ public class Othello {
 	 * @param dir the direction that we are checking
 	 */
 	public void makeFlip(char player, int r, int c, int dir) {
-		int[] dirI = {-1,1,0,0,1,-1,1,-1};
-		int[] dirJ = {0,0,1,-1,1,-1,-1,1};
 		if(wouldFlip(player,r,c,dir)) {
-			r+=dirI[dir];
-			c+=dirJ[dir];
+			r+=dirR[dir];
+			c+=dirC[dir];
 			while(cBoard[r][c] != player) {
 				cBoard[r][c] = player;
-				r+=dirI[dir];
-				c+=dirJ[dir];				
+				r+=dirR[dir];
+				c+=dirC[dir];
 			}
 		}
 	}

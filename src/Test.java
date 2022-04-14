@@ -3,7 +3,6 @@ import java.util.Scanner;
 
 public class Test {
 	// todo make sure game code is valid
-		// todo doesnt flip
 	// todo add moving without alpha-beta prunning
 	// todo add my heuristics
 	// todo add benchmark

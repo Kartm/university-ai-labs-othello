@@ -3,6 +3,9 @@ import java.util.ArrayList;
 public abstract class MinimaxPlayer extends Player{
 
 	protected int PLY = 4; //the depth of the minimax
+	public long startTime;
+	public long endTime;
+	public long timeSoFar = 0;
 	/**
 	 * Class constructor for the abstract class Player
 	 * @param pName The name of the player
@@ -23,6 +26,8 @@ public abstract class MinimaxPlayer extends Player{
 	 * Calculate a valid move for the player's next move
 	 */
 	public OthelloMove makeMove(Othello game) {
+		startTime = System.nanoTime();
+
 		ArrayList<OthelloMove> possibleMoves = game.generateMoves(colour);
 		if(possibleMoves.size() == 0) {
 			OthelloMove noMoves = new OthelloMove(0,0);
@@ -41,6 +46,12 @@ public abstract class MinimaxPlayer extends Player{
 				best = i;
 			}
 		}
+
+		endTime = System.nanoTime();
+
+		timeSoFar += endTime - startTime;
+
+		System.out.println(colour + ":" + timeSoFar);
 		
 		return possibleMoves.get(best);	
 	}
