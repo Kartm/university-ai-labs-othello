@@ -1,19 +1,3 @@
-/**
- * The board is represented as a two-dimensional list. Each
- * location on the board contains one of the following symbols:
- * <UL>
- * <LI>'<code>b</code>' for a piece with dark side up
- * <LI>'<code>w</code>' for a piece with light side up
- * <LI>'<code>.</code>' for an empty location
- * <LI>'<code>*</code>' for a location outside the playing board
- * </ul>
- * The game begins with four markers placed in a square in the
- * middle of the grid, two facing light-up, two pieces with the dark side up.
- * The dark player makes the first move. Dark must place a piece with the dark side
- * up on the board, in such a position that there exists at least
- * one straight (horizontal, vertical, or diagonal) occupied line between the new piece
- * and another dark piece, with one or more contiguous light pieces between them.
- */
 public class ConsoleColors {
     // Reset
     public static final String RESET = "\033[0m";  // Text Reset

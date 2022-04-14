@@ -1,41 +1,21 @@
 import java.lang.String;
 
-/**
- * This is the abstract superclass for all Player types.
- * 
- * Any and all player implementations should extend this class.
- */
-
 public abstract class Player {
-	public String name;
-	public BoardField colour;
-	
-	/**
-	 * Blank class constructor
-	 *
-	 */
-	public Player() {
-		name = "Player";
-		colour = BoardField.EMPTY;
-	}
-	
-	/**
-	 * Class constructor for the abstract class Player
-	 * @param pName The name of the player
-	 */
-	public Player(String pName) {
-		name = pName;
-		colour = BoardField.EMPTY;
-	}
+    public String name;
+    public BoardField colour;
 
-	/**
-	 * Abstract method that needs to be extended. 
-	 */
-	public abstract void initialize(BoardField pColour);
+    public Player() {
+        name = "Player";
+        colour = BoardField.EMPTY;
+    }
 
-	/**
-	 * Abstract method that calculates a valid move.
-	 */
-	public abstract OthelloMove makeMove(Othello game);
-	
+    public Player(String pName) {
+        name = pName;
+        colour = BoardField.EMPTY;
+    }
+
+    public abstract void initialize(BoardField pColour);
+
+    public abstract OthelloMove makeMove(Othello game);
+
 }

@@ -1,97 +1,83 @@
 import java.util.ArrayList;
 
-public abstract class MinimaxPlayer extends Player{
+public abstract class MinimaxPlayer extends Player {
+    protected int PLY = 4; //the depth of the minimax
+    public long startTime;
+    public long endTime;
+    public long timeSoFar = 0;
 
-	protected int PLY = 4; //the depth of the minimax
-	public long startTime;
-	public long endTime;
-	public long timeSoFar = 0;
-	/**
-	 * Class constructor for the abstract class Player
-	 * @param pName The name of the player
-	 */
-	public MinimaxPlayer(String pName) {
-		name = pName;
-		colour = BoardField.EMPTY;
-	}
 
-	/**
-	 * initialize the colour of the player.
-	 */
-	public void initialize(BoardField pColour) {
-		colour = pColour;
-	}
+    public MinimaxPlayer(String pName) {
+        name = pName;
+        colour = BoardField.EMPTY;
+    }
 
-	/**
-	 * Calculate a valid move for the player's next move
-	 */
-	public OthelloMove makeMove(Othello game) {
-		startTime = System.nanoTime();
+    public void initialize(BoardField pColour) {
+        colour = pColour;
+    }
 
-		ArrayList<OthelloMove> possibleMoves = game.generateMoves(colour);
-		if(possibleMoves.size() == 0) {
-			OthelloMove noMoves = new OthelloMove(0,0);
-			noMoves.notAmove();
-			possibleMoves.add(noMoves);
-		}
-		
-		int best = 0;
-		int utility = -32768;
-		for(int i=0; i<possibleMoves.size(); i++) {
-			Othello newGame = new Othello(game);
-			newGame.makeMove(colour, possibleMoves.get(i));
-			int tmp = abMin(newGame,utility,32768,PLY);
-			if(tmp>utility) {
-				utility = tmp;
-				best = i;
-			}
-		}
+    public OthelloMove makeMove(Othello game) {
+        startTime = System.nanoTime();
 
-		endTime = System.nanoTime();
+        ArrayList<OthelloMove> possibleMoves = game.generateMoves(colour);
+        if (possibleMoves.size() == 0) {
+            OthelloMove noMoves = new OthelloMove(0, 0);
+            noMoves.notAmove();
+            possibleMoves.add(noMoves);
+        }
 
-		timeSoFar += endTime - startTime;
+        int best = 0;
+        int utility = -32768;
+        for (int i = 0; i < possibleMoves.size(); i++) {
+            Othello newGame = new Othello(game);
+            newGame.makeMove(colour, possibleMoves.get(i));
+            int tmp = abMin(newGame, utility, 32768, PLY);
+            if (tmp > utility) {
+                utility = tmp;
+                best = i;
+            }
+        }
 
-		System.out.println(colour + ":" + timeSoFar);
-		
-		return possibleMoves.get(best);	
-	}
-	
-	public int abMax(Othello game, int a, int b, int cutOff) {
-		if(--cutOff == 0) 
-			return evaluationFn(game);
-		ArrayList<OthelloMove> possibleMoves = game.generateMoves(colour);
-		int utility = -32768;
-		for(int i=0; i<possibleMoves.size(); i++) {
-			Othello newGame = new Othello(game);
-			newGame.makeMove(colour, possibleMoves.get(i));
-			int tmp = abMin(newGame,a,b,cutOff);
-			if(utility < tmp) {
-				utility = tmp;
-			}
-			if(utility >= b)
-				return utility;
-			a = utility;
-		}
-		return utility;
-	}
-	
-	public int abMin(Othello game, int a, int b, int cutOff) {
-		if(--cutOff == 0) 
-			return evaluationFn(game);
-		ArrayList<OthelloMove> possibleMoves = game.generateMoves(game.opponent(colour));
-		int utility = 32767;
-		for(int i=0; i<possibleMoves.size(); i++) {
-			Othello newGame = new Othello(game);
-			newGame.makeMove(game.opponent(colour), possibleMoves.get(i));
-			int tmp = abMax(newGame,a,b,cutOff);
-			if(utility > tmp)
-				utility = tmp;
-			if(utility <= a)
-				return utility;
-			b = utility;
-		}
-		return utility;
-	}
-	
-	public abstract int evaluationFn(Othello game);
+        endTime = System.nanoTime();
+
+        timeSoFar += endTime - startTime;
+
+        System.out.println(colour + ":" + timeSoFar);
+
+        return possibleMoves.get(best);
+    }
+
+    public int abMax(Othello game, int a, int b, int cutOff) {
+        if (--cutOff == 0) return evaluationFn(game);
+        ArrayList<OthelloMove> possibleMoves = game.generateMoves(colour);
+        int utility = -32768;
+        for (int i = 0; i < possibleMoves.size(); i++) {
+            Othello newGame = new Othello(game);
+            newGame.makeMove(colour, possibleMoves.get(i));
+            int tmp = abMin(newGame, a, b, cutOff);
+            if (utility < tmp) {
+                utility = tmp;
+            }
+            if (utility >= b) return utility;
+            a = utility;
+        }
+        return utility;
+    }
+
+    public int abMin(Othello game, int a, int b, int cutOff) {
+        if (--cutOff == 0) return evaluationFn(game);
+        ArrayList<OthelloMove> possibleMoves = game.generateMoves(game.opponent(colour));
+        int utility = 32767;
+        for (int i = 0; i < possibleMoves.size(); i++) {
+            Othello newGame = new Othello(game);
+            newGame.makeMove(game.opponent(colour), possibleMoves.get(i));
+            int tmp = abMax(newGame, a, b, cutOff);
+            if (utility > tmp) utility = tmp;
+            if (utility <= a) return utility;
+            b = utility;
+        }
+        return utility;
+    }
+
+    public abstract int evaluationFn(Othello game);
 }
