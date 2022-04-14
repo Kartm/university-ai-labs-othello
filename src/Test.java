@@ -7,15 +7,25 @@ public class Test {
     // todo add benchmark
     // todo better GUI
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
 
         Player p1 = new HumanPlayer("Human");
         Player p2 = new WeightedSquaresPlayer("WeightedSquares");
         int first, second, ply1 = 4, ply2 = 4;
         boolean flag = true;
-        String astr = "";
+        String astr = """
 
-        astr += "\nChoose the players. Available options: \n" + "1. HumanPlayer\n" + "2. FrontierDisksPlayer, heuristic: \n" + "      using the feature number of disks adjacent to empty squares.\n" + "3. WeightedSquaresPlayer, heuristic: \n" + "      using the feature weighted squares value for one player.\n" + "4. PotentialMobilityPlayer, heuristic: \n" + "      combine two features: number of frontier discs \n" + "        and number of empty discs adjacent to the opponent's discs.\n" + "\n";
+                Choose the players. Available options:\s
+                1. HumanPlayer
+                2. FrontierDisksPlayer, heuristic:\s
+                      using the feature number of disks adjacent to empty squares.
+                3. WeightedSquaresPlayer, heuristic:\s
+                      using the feature weighted squares value for one player.
+                4. PotentialMobilityPlayer, heuristic:\s
+                      combine two features: number of frontier discs\s
+                        and number of empty discs adjacent to the opponent's discs.
+
+                """;
         System.out.println(astr);
 
         /* set the two player according to user's choices */
@@ -29,21 +39,14 @@ public class Test {
                 ply1 = scanner.nextInt();
             }
             switch (first) {
-                case 1:
-                    p1 = new HumanPlayer("Human");
-                    break;
-                case 2:
-                    p1 = new FrontierDisksPlayer("FrontierDisks", ply1);
-                    break;
-                case 3:
-                    p1 = new WeightedSquaresPlayer("WeightedSquares", ply1);
-                    break;
-                case 4:
-                    p1 = new CurrentMobilityPlayer("CurrentMobility", ply1);
-                    break;
-                default:
+                case 1 -> p1 = new HumanPlayer("Human");
+                case 2 -> p1 = new FrontierDisksPlayer("FrontierDisks", ply1);
+                case 3 -> p1 = new WeightedSquaresPlayer("WeightedSquares", ply1);
+                case 4 -> p1 = new CurrentMobilityPlayer("CurrentMobility", ply1);
+                default -> {
                     flag = true;
                     System.out.print("Invalid input! Please input again!\n");
+                }
             }
         }
         flag = true;
@@ -56,21 +59,14 @@ public class Test {
                 ply2 = scanner.nextInt();
             }
             switch (second) {
-                case 1:
-                    p2 = new HumanPlayer("Human");
-                    break;
-                case 2:
-                    p2 = new FrontierDisksPlayer("FrontierDisks", ply2);
-                    break;
-                case 3:
-                    p2 = new WeightedSquaresPlayer("WeightedSquares", ply2);
-                    break;
-                case 4:
-                    p2 = new CurrentMobilityPlayer("CurrentMobility", ply2);
-                    break;
-                default:
+                case 1 -> p2 = new HumanPlayer("Human");
+                case 2 -> p2 = new FrontierDisksPlayer("FrontierDisks", ply2);
+                case 3 -> p2 = new WeightedSquaresPlayer("WeightedSquares", ply2);
+                case 4 -> p2 = new CurrentMobilityPlayer("CurrentMobility", ply2);
+                default -> {
                     flag = true;
                     System.out.print("Invalid input! Please input again!\n");
+                }
             }
         }
 
