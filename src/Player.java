@@ -7,8 +7,8 @@ import java.lang.String;
  */
 
 public abstract class Player {
-	public String name = "Player";
-	public char colour ='.';
+	public String name;
+	public BoardField colour;
 	
 	/**
 	 * Blank class constructor
@@ -16,7 +16,7 @@ public abstract class Player {
 	 */
 	public Player() {
 		name = "Player";
-		colour = '.';
+		colour = BoardField.EMPTY;
 	}
 	
 	/**
@@ -25,13 +25,13 @@ public abstract class Player {
 	 */
 	public Player(String pName) {
 		name = pName;
-		colour = '.';
+		colour = BoardField.EMPTY;
 	}
 
 	/**
 	 * Abstract method that needs to be extended. 
 	 */
-	public abstract void initialize(char pColour);
+	public abstract void initialize(BoardField pColour);
 
 	/**
 	 * Abstract method that calculates a valid move.

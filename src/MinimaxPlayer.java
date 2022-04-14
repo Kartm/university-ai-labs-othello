@@ -12,13 +12,13 @@ public abstract class MinimaxPlayer extends Player{
 	 */
 	public MinimaxPlayer(String pName) {
 		name = pName;
-		colour = '.';
+		colour = BoardField.EMPTY;
 	}
 
 	/**
 	 * initialize the colour of the player.
 	 */
-	public void initialize(char pColour) {
+	public void initialize(BoardField pColour) {
 		colour = pColour;
 	}
 

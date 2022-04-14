@@ -24,9 +24,9 @@ import java.lang.String;
 		/**
 		 * Extended initialize function. Takes a side
 		 * for the player 
-		 * @param pColour A char that sets the side the player is on. 'b' for black, and 'w' for white
+		 * @param pColour A char that sets the side the player is on. BoardField.BLACK for black, and BoardField.WHITE for white
 		 */
-		public void initialize(char pColour) {
+		public void initialize(BoardField pColour) {
 			colour = pColour;
 		}
 		
