@@ -4,9 +4,10 @@ public class FrontierDisksPlayer extends MinimaxPlayer {
         super(pName);
     }
 
-    public FrontierDisksPlayer(String pName, int ply) {
+    public FrontierDisksPlayer(String pName, int ply, boolean abEnabled) {
         super(pName);
-        PLY = ply;
+        this.PLY = ply;
+        this.abEnabled = abEnabled;
     }
 
     public int evaluationFn(Othello game) {
