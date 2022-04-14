@@ -2,23 +2,6 @@ import java.lang.Character;
 import java.lang.String;
 import java.util.ArrayList;
 
-/**
- *	The board is represented as a two-dimensional list. Each
- *	location on the board contains one of the following symbols:
- *	<UL>
- *		<LI>'<code>b</code>' for a piece with dark side up
- *		<LI>'<code>w</code>' for a piece with light side up
- *		<LI>'<code>.</code>' for an empty location
- *		<LI>'<code>*</code>' for a location outside the playing board
- *	</ul>
- *  The game begins with four markers placed in a square in the 
- *  middle of the grid, two facing light-up, two pieces with the dark side up.
- *  The dark player makes the first move. Dark must place a piece with the dark side 
- *  up on the board, in such a position that there exists at least 
- *  one straight (horizontal, vertical, or diagonal) occupied line between the new piece 
- *  and another dark piece, with one or more contiguous light pieces between them. 
- *	
- */
 public class Othello {
 	
 	private static final int size = 8;
@@ -251,7 +234,9 @@ public class Othello {
 	 * This returns a string that describes the board
 	 * @return A string that describes the board
 	 */
-	public String boardToString() {
+	public String boardToString(char currentMove) {
+		System.out.println(currentMove == 'b' ? "Black's move.":"White's move.");
+		var possibleMoves = generateMoves(currentMove);
 		
 		StringBuilder result;
 		
@@ -267,7 +252,21 @@ public class Othello {
 		for (int y = 1; y <= size; y++) {
 			result.append(y).append(" ");
 			for (int x = 1; x <= size; x++) {
-				result.append(cBoard[y][x]).append(" ");
+				String sign;
+				if(cBoard[y][x] == 'w') {
+					sign = ConsoleColors.WHITE_BRIGHT + "■" + ConsoleColors.RESET;
+				} else if (cBoard[y][x] == 'b') {
+					sign = ConsoleColors.BLACK + "■" + ConsoleColors.RESET;
+				} else {
+					int finalX = x;
+					int finalY = y;
+					if (possibleMoves.stream().anyMatch(move -> move.getCol() == finalX && move.getRow() == finalY)) {
+						sign = ConsoleColors.WHITE + "▢" + ConsoleColors.RESET;
+					} else {
+						sign = ConsoleColors.WHITE + "·" + ConsoleColors.RESET;
+					}
+				}
+				result.append(sign).append(" ");
 			}
 			// insert a newline
 			result.append(newline);
@@ -333,7 +332,7 @@ public class Othello {
 			if (currentMove != 'w') {
 
 				// Show the board
-				System.out.println(boardToString());	
+				System.out.println(boardToString(currentMove));
 				
 				move = p1.makeMove(this);
 				if (move.noMoves()) {
@@ -374,7 +373,7 @@ public class Othello {
 				}
 			} else if (currentMove != 'b') {
 					
-				System.out.println(boardToString());
+				System.out.println(boardToString(currentMove));
 				move = p2.makeMove(this);
 				
 				/* handle the situation where human player concede or no valid moves and must pass or game over*/
