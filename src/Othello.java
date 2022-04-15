@@ -17,29 +17,32 @@ public class Othello {
     public Othello(int n, BoardField[][] workingBoard) {
         if (n != size + 2) {
             System.out.println(" Invalid game board!");
-        } else cBoard = workingBoard;
-    } // end of constructor
+        } else {
+            cBoard = workingBoard;
+        }
+    }
 
     public Othello(Othello k) {
         cBoard = k.getBoardCopy();
     }
 
     public void reset() {
-
-        // Define two counters and set them to zero
-        int i, j;
-        for (i = 1; i < size + 1; i++)
-            for (j = 1; j < size + 1; j++)
+        for (int i = 1; i < size + 1; i++) {
+            for (int j = 1; j < size + 1; j++) {
                 cBoard[i][j] = BoardField.EMPTY;
-        for (i = 0; i < size + 2; i++)
+            }
+        }
+        for (int i = 0; i < size + 2; i++) {
             cBoard[0][i] = cBoard[i][0] = cBoard[size + 1][i] = cBoard[i][size + 1] = BoardField.BORDER;
-        i = size / 2;
+        }
+        int i = size / 2;
         cBoard[i][i] = cBoard[i + 1][i + 1] = BoardField.WHITE;
         cBoard[i][i + 1] = cBoard[i + 1][i] = BoardField.BLACK;
-    } // End of reset
+    }
 
     public int countSymbol(BoardField symbol) {
         int count = 0;
+
         for (int c = 1; c <= size; c++) {
             for (int r = 1; r <= size; r++) {
                 if (cBoard[c][r] == symbol) {
@@ -47,6 +50,7 @@ public class Othello {
                 }
             }
         }
+
         return count;
     }
 
@@ -79,15 +83,13 @@ public class Othello {
     }
 
     public BoardField opponent(BoardField player) {
-        if (player == BoardField.BLACK) return BoardField.WHITE;
-        else return BoardField.BLACK;
+        return player == BoardField.BLACK ? BoardField.WHITE : BoardField.BLACK;
     }
 
     public boolean wouldFlip(BoardField player, int r, int c, int dir) {
         int row = r, col = c;
         boolean flag = false;
         for (int i = 0; i < 8; i++) {// in every direction 8 times
-            // row is -1
             row += dirR[dir];
             col += dirC[dir];
             if (cBoard[row][col] == opponent(player)) {
@@ -113,18 +115,23 @@ public class Othello {
 
     public boolean validMove(BoardField player, int r, int c) {
         if (cBoard[r][c] == BoardField.EMPTY) {
-            for (int k = 0; k < 8; k++)
+            for (int k = 0; k < 8; k++) {
                 if (wouldFlip(player, r, c, k)) {
                     return true;
                 }
+            }
         }
         return false;
     }
 
     public boolean anyLegalMove(BoardField player) {
-        for (int i = 1; i <= size; i++)
-            for (int j = 1; j <= size; j++)
-                if (validMove(player, i, j)) return true;
+        for (int i = 1; i <= size; i++) {
+            for (int j = 1; j <= size; j++) {
+                if (validMove(player, i, j)) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
@@ -192,8 +199,9 @@ public class Othello {
     public BoardField[][] getBoardCopy() {
         BoardField[][] newBoard = new BoardField[size + 2][size + 2];
 
-        for (int i = 0; i < size + 2; i++)
+        for (int i = 0; i < size + 2; i++) {
             System.arraycopy(cBoard[i], 0, newBoard[i], 0, size);
+        }
 
         return newBoard;
     }
@@ -224,8 +232,11 @@ public class Othello {
                     } else {
                         System.out.println("Game over!\n");
                         int difference = countSymbol(p1.colour) - countSymbol(p2.colour);
-                        if (difference < 0) System.out.println(p2.name + " is the winner.");
-                        else System.out.println(p1.name + " is the winner.");
+                        if (difference < 0) {
+                            System.out.println(p2.name + " is the winner.");
+                        } else {
+                            System.out.println(p1.name + " is the winner.");
+                        }
                         break;
                     }
                 } else {
@@ -252,8 +263,11 @@ public class Othello {
                     } else {
                         System.out.println("Game over!\n");
                         int difference = countSymbol(p1.colour) - countSymbol(p2.colour);
-                        if (difference < 0) System.out.println(p2.name + " is the winner.");
-                        else System.out.println(p1.name + " is the winner.");
+                        if (difference < 0) {
+                            System.out.println(p2.name + " is the winner.");
+                        } else {
+                            System.out.println(p1.name + " is the winner.");
+                        }
                         break;
                     }
                 } else {

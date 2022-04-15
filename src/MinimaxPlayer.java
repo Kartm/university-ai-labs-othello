@@ -33,8 +33,8 @@ public abstract class MinimaxPlayer extends Player {
     }
 
     private OthelloMove makeMoveNoAlphaBeta(Othello game) {
-
         ArrayList<OthelloMove> possibleMoves = game.generateMoves(colour);
+
         if (possibleMoves.size() == 0) {
             OthelloMove noMoves = new OthelloMove(0, 0);
             noMoves.notAmove();
@@ -52,8 +52,6 @@ public abstract class MinimaxPlayer extends Player {
                 best = i;
             }
         }
-
-
 
         return possibleMoves.get(best);
     }
@@ -84,7 +82,7 @@ public abstract class MinimaxPlayer extends Player {
             int tmp = abMaxNoAlphaBeta(newGame, cutOff);
             if (utility > tmp) {
                 utility = tmp;
-            };
+            }
         }
         return utility;
     }
