@@ -2,7 +2,6 @@ import java.lang.String;
 import java.util.ArrayList;
 
 public class Othello {
-
     private static final int size = 8;
     private BoardField[][] cBoard;
     public static String newline = System.getProperty("line.separator");
@@ -54,19 +53,6 @@ public class Othello {
     public int weightedSquares(BoardField player) {
         // @formatter:off
         // minus is a penalty
-//        int[][] weights = {
-//                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-//                {0, 120, -20, 20, 5, 5, 20, -20, 120, 0},
-//                {0, -20, -40, -5, -5, -5, -5, -40, -20, 0},
-//                {0, 20, -5, 15, 3, 3, 15, -5, 20, 0},
-//                {0, 5, -5, 3, 3, 3, 3, -5, 5, 0},
-//                {0, 5, -5, 3, 3, 3, 3, -5, 5, 0},
-//                {0, 20, -5, 15, 3, 3, 15, -5, 20, 0},
-//                {0, -20, -40, -5, -5, -5, -5, -40, -20, 0},
-//                {0, 120, -20, 20, 5, 5, 20, -20, 120, 0},
-//                {0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-//        };
-
         int[][] weights = {
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                 {0, 240, -40, 60, 20, 20, 60, -40, 240, 0},
@@ -86,25 +72,9 @@ public class Othello {
             for (int j = 1; j <= size; j++) {
                 if (cBoard[i][j] == player) {
                     sum += weights[i][j];
-                };
-            }
-        }
-        return sum;
-    }
-
-    public int frontierDisks(BoardField player) {
-
-        int sum = 0;
-        for (int i = 1; i <= size; i++)
-            for (int j = 1; j <= size; j++) {
-                if (cBoard[i][j] == player) {
-                    for (int k = 0; k < 8; k++)
-                        if (cBoard[i + dirR[k]][j + dirC[k]] == BoardField.EMPTY) {
-                            sum++;
-                            break;
-                        }
                 }
             }
+        }
         return sum;
     }
 
@@ -265,9 +235,8 @@ public class Othello {
                     System.out.println(moveString);
 
                     currentMove = BoardField.WHITE;
-                    continue;
                 }
-            } else if (currentMove != BoardField.BLACK) {
+            } else {
                 move = p2.makeMove(this);
 
                 if (move.noMoves()) {
