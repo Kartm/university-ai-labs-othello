@@ -12,13 +12,15 @@ public class LeastMovesPlayer extends MinimaxPlayer {
 
     public int evaluationFn(Othello game) {
         int myMoves = game.generateMoves(colour).size();
-        int opMoves = game.generateMoves(game.opponent(colour)).size();
+        int opponentMoves = game.generateMoves(game.opponent(colour)).size();
 
         if(myMoves == 0) {
-            return -opMoves;
+            return -1 * (int)Math.round(Math.pow((opponentMoves), 2));
         }
 
-        return (-1) * (myMoves - opMoves);
+        int sign = myMoves - opponentMoves > 0 ? -1:1;
+
+        return sign * (int)Math.round(Math.pow((myMoves - opponentMoves), 2));
     }
 
 }
