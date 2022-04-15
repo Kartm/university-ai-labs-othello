@@ -1,57 +1,36 @@
-import java.util.HashMap;
-import java.util.Scanner;
-
 public class Test {
-    // todo make sure game code is valid
-    // todo add moving without alpha-beta prunning
-    // todo add my heuristics
-    // todo add benchmark
-    // todo better GUI
-
     public static void main(String[] args) {
         MinimaxPlayer[] players = new MinimaxPlayer[]{
                 new WeightedSquaresPlayer("WeightedSquares", 1, true),
-                new WeightedSquaresPlayer("WeightedSquares", 2, true),
                 new WeightedSquaresPlayer("WeightedSquares", 3, true),
                 new WeightedSquaresPlayer("WeightedSquares", 4, true),
                 new WeightedSquaresPlayer("WeightedSquares", 5, true),
-                new WeightedSquaresPlayer("WeightedSquares", 6, true), // decided to skip 9 because it was too long. at least one order of magnitude longer
+                new WeightedSquaresPlayer("WeightedSquares", 6, true),
+                new WeightedSquaresPlayer("WeightedSquares", 9, true),
                 new LeastMovesPlayer("LeastMovesPlayer", 1, true),
-                new LeastMovesPlayer("LeastMovesPlayer", 2, true),
                 new LeastMovesPlayer("LeastMovesPlayer", 3, true),
                 new LeastMovesPlayer("LeastMovesPlayer", 4, true),
                 new LeastMovesPlayer("LeastMovesPlayer", 5, true),
                 new LeastMovesPlayer("LeastMovesPlayer", 6, true),
+                new LeastMovesPlayer("LeastMovesPlayer", 9, true),
                 new WeightedSquaresPlayer("WeightedSquares", 1, false),
-                new WeightedSquaresPlayer("WeightedSquares", 2, false),
                 new WeightedSquaresPlayer("WeightedSquares", 3, false),
                 new WeightedSquaresPlayer("WeightedSquares", 4, false),
                 new WeightedSquaresPlayer("WeightedSquares", 5, false),
                 new WeightedSquaresPlayer("WeightedSquares", 6, false),
+                new WeightedSquaresPlayer("WeightedSquares", 9, false),
                 new LeastMovesPlayer("LeastMovesPlayer", 1, false),
-                new LeastMovesPlayer("LeastMovesPlayer", 2, false),
                 new LeastMovesPlayer("LeastMovesPlayer", 3, false),
                 new LeastMovesPlayer("LeastMovesPlayer", 4, false),
                 new LeastMovesPlayer("LeastMovesPlayer", 5, false),
                 new LeastMovesPlayer("LeastMovesPlayer", 6, false),
+                new LeastMovesPlayer("LeastMovesPlayer", 9, false),
         };
-
-        HashMap<String, Boolean> visited = new HashMap<String,Boolean>();
 
         for(int i = 0; i < players.length; i++) {
             for(int j = 0; j < players.length; j++) {
-//                if(i == j) {
-//                    continue;
-//                }
                 var char_a = (char)((i%players.length)+65);
                 var char_b = (char)((j%players.length)+65);
-
-//                if (visited.getOrDefault(String.format("%s%s", char_a, char_b), false) || visited.getOrDefault(String.format("%s%s", char_b, char_a), false)) {
-//                    continue;
-//                }
-
-//                visited.put(String.format("%s%s", char_a, char_b), true);
-//                visited.put(String.format("%s%s", char_b, char_a), true);
 
                 var p1 = players[i]; // BLACK
                 var p2 = players[j]; // WHITE
