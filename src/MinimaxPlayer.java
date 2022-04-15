@@ -46,7 +46,7 @@ public abstract class MinimaxPlayer extends Player {
         }
 
         int best = 0;
-        int utility = -32768;
+        int utility = Integer.MIN_VALUE;
         for (int i = 0; i < possibleMoves.size(); i++) {
             Othello newGame = new Othello(game);
             newGame.makeMove(colour, possibleMoves.get(i));
@@ -63,7 +63,7 @@ public abstract class MinimaxPlayer extends Player {
     private int abMaxNoAlphaBeta(Othello game, int cutOff) {
         if (--cutOff == 0) return evaluationFn(game);
         ArrayList<OthelloMove> possibleMoves = game.generateMoves(colour);
-        int utility = -32768;
+        int utility = Integer.MIN_VALUE;
         for (OthelloMove possibleMove : possibleMoves) {
             Othello newGame = new Othello(game);
             newGame.makeMove(colour, possibleMove);
@@ -78,7 +78,7 @@ public abstract class MinimaxPlayer extends Player {
     private int abMinNoAlphaBeta(Othello game, int cutOff) {
         if (--cutOff == 0) return evaluationFn(game);
         ArrayList<OthelloMove> possibleMoves = game.generateMoves(game.opponent(colour));
-        int utility = 32767;
+        int utility = Integer.MAX_VALUE;
         for (OthelloMove possibleMove : possibleMoves) {
             Othello newGame = new Othello(game);
             newGame.makeMove(game.opponent(colour), possibleMove);
@@ -100,11 +100,11 @@ public abstract class MinimaxPlayer extends Player {
         }
 
         int best = 0;
-        int utility = -32768;
+        int utility = Integer.MIN_VALUE;
         for (int i = 0; i < possibleMoves.size(); i++) {
             Othello newGame = new Othello(game);
             newGame.makeMove(colour, possibleMoves.get(i));
-            int tmp = abMinAlphaBeta(newGame, utility, 32768, PLY);
+            int tmp = abMinAlphaBeta(newGame, utility, Integer.MAX_VALUE, PLY);
             if (tmp > utility) {
                 utility = tmp;
                 best = i;
@@ -119,7 +119,7 @@ public abstract class MinimaxPlayer extends Player {
     private int abMaxAlphaBeta(Othello game, int a, int b, int cutOff) {
         if (--cutOff == 0) return evaluationFn(game);
         ArrayList<OthelloMove> possibleMoves = game.generateMoves(colour);
-        int utility = -32768;
+        int utility = Integer.MIN_VALUE;
         for (OthelloMove possibleMove : possibleMoves) {
             Othello newGame = new Othello(game);
             newGame.makeMove(colour, possibleMove);
@@ -136,7 +136,7 @@ public abstract class MinimaxPlayer extends Player {
     private int abMinAlphaBeta(Othello game, int a, int b, int cutOff) {
         if (--cutOff == 0) return evaluationFn(game);
         ArrayList<OthelloMove> possibleMoves = game.generateMoves(game.opponent(colour));
-        int utility = 32767;
+        int utility = Integer.MAX_VALUE;
         for (OthelloMove possibleMove : possibleMoves) {
             Othello newGame = new Othello(game);
             newGame.makeMove(game.opponent(colour), possibleMove);
