@@ -281,7 +281,7 @@ public class Othello {
                         System.out.println("Game over!\n");
                         int difference = countSymbol(p1.colour) - countSymbol(p2.colour);
                         if (difference < 0) System.out.println(p2.name + " is the winner.");
-                        else System.out.println(p1.name + "is the winner.");
+                        else System.out.println(p1.name + " is the winner.");
                         break;
                     }
                 } else {

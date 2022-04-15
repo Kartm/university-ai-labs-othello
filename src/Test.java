@@ -17,15 +17,9 @@ public class Test {
         String astr = """
 
                 Choose the players. Available options:\s
-                1. HumanPlayer
-                2. FrontierDisksPlayer, heuristic:\s
-                      using the feature number of disks adjacent to empty squares.
-                3. WeightedSquaresPlayer, heuristic:\s
-                      using the feature weighted squares value for one player.
-                4. PotentialMobilityPlayer, heuristic:\s
-                      combine two features: number of frontier discs\s
-                        and number of empty discs adjacent to the opponent's discs.
-
+                1. HumanPlayer\s
+                2. WeightedSquaresPlayer, AI\s
+                3. LeastMovesPlayer, AI
                 """;
         System.out.println(astr);
 
@@ -44,9 +38,8 @@ public class Test {
             }
             switch (first) {
                 case 1 -> p1 = new HumanPlayer("Human");
-                case 2 -> p1 = new FrontierDisksPlayer("FrontierDisks", ply1, abEnabled);
-                case 3 -> p1 = new WeightedSquaresPlayer("WeightedSquares", ply1, abEnabled);
-                case 4 -> p1 = new CurrentMobilityPlayer("CurrentMobility", ply1, abEnabled);
+                case 2 -> p1 = new WeightedSquaresPlayer("WeightedSquares", ply1, abEnabled);
+                case 3 -> p1 = new LeastMovesPlayer("LeastMovesPlayer", ply1, abEnabled);
                 default -> {
                     flag = true;
                     System.out.print("Invalid input! Please input again!\n");
@@ -67,9 +60,8 @@ public class Test {
             }
             switch (second) {
                 case 1 -> p2 = new HumanPlayer("Human");
-                case 2 -> p2 = new FrontierDisksPlayer("FrontierDisks", ply2, abEnabled);
-                case 3 -> p2 = new WeightedSquaresPlayer("WeightedSquares", ply2, abEnabled);
-                case 4 -> p2 = new CurrentMobilityPlayer("CurrentMobility", ply2, abEnabled);
+                case 2 -> p2 = new WeightedSquaresPlayer("WeightedSquares", ply2, abEnabled);
+                case 3 -> p2 = new LeastMovesPlayer("LeastMovesPlayer", ply2, abEnabled);
                 default -> {
                     flag = true;
                     System.out.print("Invalid input! Please input again!\n");

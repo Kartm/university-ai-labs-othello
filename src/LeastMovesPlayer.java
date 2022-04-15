@@ -1,10 +1,10 @@
-public class CurrentMobilityPlayer extends MinimaxPlayer {
+public class LeastMovesPlayer extends MinimaxPlayer {
 
-    public CurrentMobilityPlayer(String pName) {
+    public LeastMovesPlayer(String pName) {
         super(pName);
     }
 
-    public CurrentMobilityPlayer(String pName, int ply, boolean abEnabled) {
+    public LeastMovesPlayer(String pName, int ply, boolean abEnabled) {
         super(pName);
         this.PLY = ply;
         this.abEnabled = abEnabled;
@@ -13,7 +13,12 @@ public class CurrentMobilityPlayer extends MinimaxPlayer {
     public int evaluationFn(Othello game) {
         int myMoves = game.generateMoves(colour).size();
         int opMoves = game.generateMoves(game.opponent(colour)).size();
-        return 100 * ((myMoves - opMoves) / (myMoves + opMoves + 2));
+
+        if(myMoves == 0) {
+            return -opMoves;
+        }
+
+        return (-1) * (myMoves - opMoves);
     }
 
 }
