@@ -13,6 +13,10 @@ public abstract class MinimaxPlayer extends Player {
         colour = BoardField.EMPTY;
     }
 
+    public int getPLY() {
+        return PLY;
+    }
+
     public void initialize(BoardField pColour) {
         colour = pColour;
     }
@@ -27,7 +31,7 @@ public abstract class MinimaxPlayer extends Player {
 
         timeSoFar += endTime - startTime;
 
-        System.out.println(colour + ":" + timeSoFar);
+//        System.out.println(colour + ":" + timeSoFar);
 
         return move;
     }
@@ -64,7 +68,6 @@ public abstract class MinimaxPlayer extends Player {
             Othello newGame = new Othello(game);
             newGame.makeMove(colour, possibleMove);
             int tmp = abMinNoAlphaBeta(newGame, cutOff);
-            System.out.println(tmp);
             if (utility < tmp) {
                 utility = tmp;
             }

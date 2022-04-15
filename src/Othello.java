@@ -206,7 +206,7 @@ public class Othello {
         return newBoard;
     }
 
-    public void play(Player p1, Player p2) {
+    public BoardField play(Player p1, Player p2, boolean silent) {
         p1.initialize(BoardField.BLACK);
         p2.initialize(BoardField.WHITE);
         BoardField currentMove = BoardField.BLACK;
@@ -214,36 +214,55 @@ public class Othello {
         while (true) {
             OthelloMove move;
 
-            System.out.println(boardToString(currentMove));
+            if(!silent) {
+                System.out.println(boardToString(currentMove));
+            }
 
             if (currentMove != BoardField.WHITE) {
 
                 move = p1.makeMove(this);
                 if (move.noMoves()) {
                     if (anyLegalMove(p2.colour)) {
-                        System.out.println(p1.name + "'s (Black) move.");
+                        if(!silent) {
+                            System.out.println(p1.name + "'s (Black) move.");
+                        }
                         if (move.gameOver()) {
-                            System.out.println(p1.name + " concedes. Game Over!\n");
-                            break;
+                            if(!silent) {
+                                System.out.println(p1.name + " concedes. Game Over!\n");
+                            }
+                            return p2.colour;
                         } else {
-                            System.out.println("No valid moves. " + p1.name + " must pass.");
+                            if(!silent) {
+                                System.out.println("No valid moves. " + p1.name + " must pass.");
+                            }
                             currentMove = BoardField.WHITE;
                         }
                     } else {
-                        System.out.println("Game over!\n");
+                        if(!silent) {
+                            System.out.println("Game over!\n");
+                        }
                         int difference = countSymbol(p1.colour) - countSymbol(p2.colour);
                         if (difference < 0) {
-                            System.out.println(p2.name + " is the winner.");
+                            if(!silent) {
+                                System.out.println(p2.name + " is the winner.");
+                            }
+                            return p2.colour;
                         } else {
-                            System.out.println(p1.name + " is the winner.");
+                            if(!silent) {
+                                System.out.println(p1.name + " is the winner.");
+                            }
+                            return p1.colour;
                         }
-                        break;
                     }
                 } else {
-                    System.out.println(p1.name + "'s (Black) move.");
+                    if(!silent) {
+                        System.out.println(p1.name + "'s (Black) move.");
+                    }
                     makeMove(p1.colour, move);
                     String moveString = "The move is    " + move.getRow() + ", " + move.getCol();
-                    System.out.println(moveString);
+                    if(!silent) {
+                        System.out.println(moveString);
+                    }
 
                     currentMove = BoardField.WHITE;
                 }
@@ -252,30 +271,47 @@ public class Othello {
 
                 if (move.noMoves()) {
                     if (anyLegalMove(p1.colour)) {
-                        System.out.println(p2.name + "'s (White) move.");
+                        if(!silent) {
+                            System.out.println(p2.name + "'s (White) move.");
+                        }
                         if (move.gameOver()) {
-                            System.out.println(p1.name + " concedes. Game Over!\n");
-                            break;
+                            if(!silent) {
+                                System.out.println(p1.name + " concedes. Game Over!\n");
+                            }
+                            return p2.colour; // ?
                         } else {
-                            System.out.println("No valid moves." + p2.name + " must pass. ");
+                            if(!silent) {
+                                System.out.println("No valid moves." + p2.name + " must pass. ");
+                            }
                             currentMove = BoardField.BLACK;
                         }
                     } else {
-                        System.out.println("Game over!\n");
+                        if(!silent) {
+                            System.out.println("Game over!\n");
+                        }
                         int difference = countSymbol(p1.colour) - countSymbol(p2.colour);
                         if (difference < 0) {
-                            System.out.println(p2.name + " is the winner.");
+                            if(!silent) {
+                                System.out.println(p2.name + " is the winner.");
+                            }
+                            return p2.colour;
                         } else {
-                            System.out.println(p1.name + " is the winner.");
+                            if(!silent) {
+                                System.out.println(p1.name + " is the winner.");
+                            }
+                            return p1.colour;
                         }
-                        break;
                     }
                 } else {
-                    System.out.println(p2.name + "'s (White) move.");
+                    if(!silent) {
+                        System.out.println(p2.name + "'s (White) move.");
+                    }
                     makeMove(p2.colour, move);
                     currentMove = BoardField.BLACK;
                     String moveString = "The move is " + move.getRow() + ", " + move.getCol();
-                    System.out.println(moveString);
+                    if(!silent) {
+                        System.out.println(moveString);
+                    }
                 }
             }
 
