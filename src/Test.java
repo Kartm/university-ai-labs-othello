@@ -11,29 +11,29 @@ public class Test {
     public static void main(String[] args) {
         MinimaxPlayer[] players = new MinimaxPlayer[]{
                 new WeightedSquaresPlayer("WeightedSquares", 1, true),
+                new WeightedSquaresPlayer("WeightedSquares", 2, true),
                 new WeightedSquaresPlayer("WeightedSquares", 3, true),
                 new WeightedSquaresPlayer("WeightedSquares", 4, true),
                 new WeightedSquaresPlayer("WeightedSquares", 5, true),
-                new WeightedSquaresPlayer("WeightedSquares", 6, true),
-                new WeightedSquaresPlayer("WeightedSquares", 9, true), // decided to skip 9 because it was too long. at least one order of magnitude longer
+                new WeightedSquaresPlayer("WeightedSquares", 6, true), // decided to skip 9 because it was too long. at least one order of magnitude longer
                 new LeastMovesPlayer("LeastMovesPlayer", 1, true),
+                new LeastMovesPlayer("LeastMovesPlayer", 2, true),
                 new LeastMovesPlayer("LeastMovesPlayer", 3, true),
                 new LeastMovesPlayer("LeastMovesPlayer", 4, true),
                 new LeastMovesPlayer("LeastMovesPlayer", 5, true),
                 new LeastMovesPlayer("LeastMovesPlayer", 6, true),
-                new LeastMovesPlayer("LeastMovesPlayer", 9, true),
                 new WeightedSquaresPlayer("WeightedSquares", 1, false),
+                new WeightedSquaresPlayer("WeightedSquares", 2, false),
                 new WeightedSquaresPlayer("WeightedSquares", 3, false),
                 new WeightedSquaresPlayer("WeightedSquares", 4, false),
                 new WeightedSquaresPlayer("WeightedSquares", 5, false),
                 new WeightedSquaresPlayer("WeightedSquares", 6, false),
-                new WeightedSquaresPlayer("WeightedSquares", 9, false),
                 new LeastMovesPlayer("LeastMovesPlayer", 1, false),
+                new LeastMovesPlayer("LeastMovesPlayer", 2, false),
                 new LeastMovesPlayer("LeastMovesPlayer", 3, false),
                 new LeastMovesPlayer("LeastMovesPlayer", 4, false),
                 new LeastMovesPlayer("LeastMovesPlayer", 5, false),
                 new LeastMovesPlayer("LeastMovesPlayer", 6, false),
-                new LeastMovesPlayer("LeastMovesPlayer", 9, false),
         };
 
         HashMap<String, Boolean> visited = new HashMap<String,Boolean>();
