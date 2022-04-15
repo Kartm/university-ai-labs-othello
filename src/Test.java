@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Test {
@@ -14,7 +15,7 @@ public class Test {
                 new WeightedSquaresPlayer("WeightedSquares", 4, true),
                 new WeightedSquaresPlayer("WeightedSquares", 5, true),
                 new WeightedSquaresPlayer("WeightedSquares", 6, true),
-                new WeightedSquaresPlayer("WeightedSquares", 9, true),
+                new WeightedSquaresPlayer("WeightedSquares", 9, true), // decided to skip 9 because it was too long. at least one order of magnitude longer
                 new LeastMovesPlayer("LeastMovesPlayer", 1, true),
                 new LeastMovesPlayer("LeastMovesPlayer", 3, true),
                 new LeastMovesPlayer("LeastMovesPlayer", 4, true),
@@ -35,11 +36,22 @@ public class Test {
                 new LeastMovesPlayer("LeastMovesPlayer", 9, false),
         };
 
+        HashMap<String, Boolean> visited = new HashMap<String,Boolean>();
+
         for(int i = 0; i < players.length; i++) {
             for(int j = 0; j < players.length; j++) {
-                if(i == j) {
-                    continue;
-                }
+//                if(i == j) {
+//                    continue;
+//                }
+                var char_a = (char)((i%players.length)+65);
+                var char_b = (char)((j%players.length)+65);
+
+//                if (visited.getOrDefault(String.format("%s%s", char_a, char_b), false) || visited.getOrDefault(String.format("%s%s", char_b, char_a), false)) {
+//                    continue;
+//                }
+
+//                visited.put(String.format("%s%s", char_a, char_b), true);
+//                visited.put(String.format("%s%s", char_b, char_a), true);
 
                 var p1 = players[i]; // BLACK
                 var p2 = players[j]; // WHITE
@@ -50,9 +62,10 @@ public class Test {
                 Othello game = new Othello();
                 var result = game.play(p1, p2, true);
 
-                var p1_label = String.format("%s(depth=%d, %s)", p1.name, p1.getPLY(), p1.abEnabled ? "AB":"MM");
-                var p2_label = String.format("%s(depth=%d, %s)", p2.name, p2.getPLY(), p2.abEnabled ? "AB":"MM");
-                System.out.printf("%s\t%s\t%s\t%d\t%d%n", p1_label, p2_label, result == BoardField.BLACK ? p1_label:p2_label, p1.timeSoFar, p2.timeSoFar);
+                var progress = String.format("%d/%d", i*players.length +j, players.length*players.length - players.length );
+                var p1_label = String.format("%s\t%s\t%d\t%s", char_a, p1.name, p1.getPLY(), p1.abEnabled);
+                var p2_label = String.format("%s\t%s\t%d\t%s", char_b, p2.name, p2.getPLY(), p2.abEnabled);
+                System.out.printf("%s\t%s\t%s\t%s\t%d\t%d%n", progress, p1_label, p2_label, result == BoardField.BLACK ? p1_label:p2_label, p1.timeSoFar, p2.timeSoFar);
             }
         }
 

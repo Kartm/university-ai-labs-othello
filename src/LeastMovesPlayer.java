@@ -15,12 +15,12 @@ public class LeastMovesPlayer extends MinimaxPlayer {
         int opponentMoves = game.generateMoves(game.opponent(colour)).size();
 
         if(myMoves == 0) {
-            return -1 * (int)Math.round(Math.pow((opponentMoves), 2));
+            return -1 * opponentMoves * opponentMoves;
         }
 
         int sign = myMoves - opponentMoves > 0 ? -1:1;
 
-        return sign * (int)Math.round(Math.pow((myMoves - opponentMoves), 2));
+        return sign * (myMoves - opponentMoves) * (myMoves - opponentMoves);
     }
 
 }
