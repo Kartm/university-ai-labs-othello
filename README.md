@@ -5,7 +5,7 @@ This is an assignment I did for my Artifical Intelligence module in 2011.
 To play this game, go to the directory where you put those source files:
 
 1. Compile:
-javac Test.java Player.java Othello.java OthelloMove.java HumanPlayer.java MinimaxPlayer.java WeightedSquaresPlayer.java FrontierDisksPlayer.java LeastMovesPlayer.java  PotentialMobilityPlayer.java
+javac Test.java Player.java Othello.java OthelloMove.java HumanPlayer.java MinimaxPlayer.java PenaltyRewardPlayer.java FrontierDisksPlayer.java LeastMovesPlayer.java  PotentialMobilityPlayer.java
 2. Run:
 java Test
 

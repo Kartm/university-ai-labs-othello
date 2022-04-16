@@ -54,7 +54,7 @@ public class Othello {
         return count;
     }
 
-    public int weightedSquares(BoardField player) {
+    public int PenaltyReward(BoardField player) {
         // @formatter:off
         // minus is a penalty
         int[][] weights = {
