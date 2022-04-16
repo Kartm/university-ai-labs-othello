@@ -20,9 +20,9 @@ public class HumanPlayer extends Player {
         OthelloMove humanMove = null;
         Scanner scanner = new Scanner(System.in);
         int col, row;
-        if (game.anyLegalMove(colour) == false) {
+        if (game.hasAnyMove(colour) == false) {
             OthelloMove noMove = new OthelloMove(0, 0);
-            noMove.notAmove();
+            noMove.makeEmpty();
             System.out.println("Here!! no valid moves!\n");///////////////////////////////////
             return noMove;
         }
@@ -34,13 +34,13 @@ public class HumanPlayer extends Player {
                 // If the game is conceded
                 if (row == -1) {
                     OthelloMove gameOver = new OthelloMove(0, 0);
-                    gameOver.concede();
+                    gameOver.surrender();
                     return gameOver;
                 } else {
                     col = scanner.nextInt();
                     // if we reach here the player has entered valid input
                     // we now need to check if this is a valid move
-                    if (game.validMove(colour, row, col)) {
+                    if (game.isValidMove(colour, row, col)) {
                         humanMove = new OthelloMove(row, col);
                         validInput = true;
                     } else System.out.println("Invalid Move!");

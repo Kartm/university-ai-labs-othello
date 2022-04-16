@@ -35,12 +35,12 @@ public abstract class MinimaxPlayer extends Player {
     }
 
     private OthelloMove makeMoveNoAlphaBeta(Othello game) {
-        ArrayList<OthelloMove> possibleMoves = game.generateMoves(colour);
+        ArrayList<OthelloMove> possibleMoves = game.getPossibleMoves(colour);
 
         if (possibleMoves.size() == 0) {
-            OthelloMove noMoves = new OthelloMove(0, 0);
-            noMoves.notAmove();
-            possibleMoves.add(noMoves);
+            OthelloMove emptyMove = new OthelloMove(0, 0);
+            emptyMove.makeEmpty();
+            possibleMoves.add(emptyMove);
         }
 
         int currentMaxIndex = 0;
@@ -54,45 +54,48 @@ public abstract class MinimaxPlayer extends Player {
                 currentMaxIndex = i;
             }
         }
-
         return possibleMoves.get(currentMaxIndex);
     }
 
-    private int abMaxNoAlphaBeta(Othello game, int cutOff) {
-        if (cutOff == 0) {
+    private int abMaxNoAlphaBeta(Othello game, int currentDepth) {
+        if (currentDepth == 0) {
             return evaluateBoard(game);
         }
-        ArrayList<OthelloMove> possibleMoves = game.generateMoves(colour);
+
+        ArrayList<OthelloMove> possibleMoves = game.getPossibleMoves(colour);
         int currentMax = Integer.MIN_VALUE;
         for (OthelloMove possibleMove : possibleMoves) {
             Othello newGame = new Othello(game);
             newGame.makeMove(colour, possibleMove);
-            int result = abMinNoAlphaBeta(newGame, cutOff - 1);
+            int result = abMinNoAlphaBeta(newGame, currentDepth - 1);
             currentMax = Math.max(currentMax, result);
         }
+
         return currentMax;
     }
 
-    private int abMinNoAlphaBeta(Othello game, int cutOff) {
-        if (cutOff == 0) {
+    private int abMinNoAlphaBeta(Othello game, int currentDepth) {
+        if (currentDepth == 0) {
             return evaluateBoard(game);
         }
-        ArrayList<OthelloMove> possibleMoves = game.generateMoves(game.opponent(colour));
+
+        ArrayList<OthelloMove> possibleMoves = game.getPossibleMoves(game.opponent(colour));
         int currentMin = Integer.MAX_VALUE;
         for (OthelloMove possibleMove : possibleMoves) {
             Othello newGame = new Othello(game);
             newGame.makeMove(game.opponent(colour), possibleMove);
-            int result = abMaxNoAlphaBeta(newGame, cutOff - 1);
+            int result = abMaxNoAlphaBeta(newGame, currentDepth - 1);
             currentMin = Math.min(currentMin, result);
         }
+
         return currentMin;
     }
 
     private OthelloMove makeMoveAlphaBeta(Othello game) {
-        ArrayList<OthelloMove> possibleMoves = game.generateMoves(colour);
+        ArrayList<OthelloMove> possibleMoves = game.getPossibleMoves(colour);
         if (possibleMoves.size() == 0) {
             OthelloMove noMoves = new OthelloMove(0, 0);
-            noMoves.notAmove();
+            noMoves.makeEmpty();
             possibleMoves.add(noMoves);
         }
 
@@ -108,8 +111,6 @@ public abstract class MinimaxPlayer extends Player {
             }
         }
 
-
-
         return possibleMoves.get(indexOfCurrentMax);
     }
 
@@ -117,7 +118,8 @@ public abstract class MinimaxPlayer extends Player {
         if (currentDepth == 0) {
             return evaluateBoard(game);
         }
-        ArrayList<OthelloMove> possibleMoves = game.generateMoves(colour);
+
+        ArrayList<OthelloMove> possibleMoves = game.getPossibleMoves(colour);
         int currentMax = Integer.MIN_VALUE;
         for (OthelloMove possibleMove : possibleMoves) {
             Othello newGame = new Othello(game);
@@ -129,6 +131,7 @@ public abstract class MinimaxPlayer extends Player {
             }
             alpha = currentMax;
         }
+
         return currentMax;
     }
 
@@ -136,7 +139,8 @@ public abstract class MinimaxPlayer extends Player {
         if (currentDepth == 0) {
             return evaluateBoard(game);
         }
-        ArrayList<OthelloMove> possibleMoves = game.generateMoves(game.opponent(colour));
+
+        ArrayList<OthelloMove> possibleMoves = game.getPossibleMoves(game.opponent(colour));
         int currentMin = Integer.MAX_VALUE;
         for (OthelloMove possibleMove : possibleMoves) {
             Othello newGame = new Othello(game);
@@ -148,6 +152,7 @@ public abstract class MinimaxPlayer extends Player {
             }
             beta = currentMin;
         }
+
         return currentMin;
     }
 

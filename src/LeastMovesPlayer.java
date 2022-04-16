@@ -11,8 +11,8 @@ public class LeastMovesPlayer extends MinimaxPlayer {
     }
 
     public int evaluateBoard(Othello game) {
-        int myMoves = game.generateMoves(colour).size();
-        int opponentMoves = game.generateMoves(game.opponent(colour)).size();
+        int myMoves = game.getPossibleMoves(colour).size();
+        int opponentMoves = game.getPossibleMoves(game.opponent(colour)).size();
 
         if(myMoves == 0) {
             return -1 * opponentMoves * opponentMoves;

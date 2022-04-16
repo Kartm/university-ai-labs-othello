@@ -2,50 +2,50 @@ import java.lang.String;
 import java.util.ArrayList;
 
 public class Othello {
-    private static final int size = 8;
-    private BoardField[][] cBoard;
+    private static final int boardSize = 8;
+    private BoardField[][] board;
     public static String newline = System.getProperty("line.separator");
 
     private static final int[] dirR = {-1, 1, 0, 0, 1, -1, 1, -1};
     private static final int[] dirC = {0, 0, 1, -1, 1, -1, -1, 1};
 
     public Othello() {
-        cBoard = new BoardField[size + 2][size + 2];
-        reset();
+        board = new BoardField[boardSize + 2][boardSize + 2];
+        initialize();
     }
 
     public Othello(int n, BoardField[][] workingBoard) {
-        if (n != size + 2) {
+        if (n != boardSize + 2) {
             System.out.println(" Invalid game board!");
         } else {
-            cBoard = workingBoard;
+            board = workingBoard;
         }
     }
 
     public Othello(Othello k) {
-        cBoard = k.getBoardCopy();
+        board = k.getClone();
     }
 
-    public void reset() {
-        for (int i = 1; i < size + 1; i++) {
-            for (int j = 1; j < size + 1; j++) {
-                cBoard[i][j] = BoardField.EMPTY;
+    public void initialize() {
+        for (int i = 1; i < boardSize + 1; i++) {
+            for (int j = 1; j < boardSize + 1; j++) {
+                board[i][j] = BoardField.EMPTY;
             }
         }
-        for (int i = 0; i < size + 2; i++) {
-            cBoard[0][i] = cBoard[i][0] = cBoard[size + 1][i] = cBoard[i][size + 1] = BoardField.BORDER;
+        for (int i = 0; i < boardSize + 2; i++) {
+            board[0][i] = board[i][0] = board[boardSize + 1][i] = board[i][boardSize + 1] = BoardField.BORDER;
         }
-        int i = size / 2;
-        cBoard[i][i] = cBoard[i + 1][i + 1] = BoardField.WHITE;
-        cBoard[i][i + 1] = cBoard[i + 1][i] = BoardField.BLACK;
+        int i = boardSize / 2;
+        board[i][i] = board[i + 1][i + 1] = BoardField.WHITE;
+        board[i][i + 1] = board[i + 1][i] = BoardField.BLACK;
     }
 
-    public int countSymbol(BoardField symbol) {
+    public int countBoardFields(BoardField symbol) {
         int count = 0;
 
-        for (int c = 1; c <= size; c++) {
-            for (int r = 1; r <= size; r++) {
-                if (cBoard[c][r] == symbol) {
+        for (int c = 1; c <= boardSize; c++) {
+            for (int r = 1; r <= boardSize; r++) {
+                if (board[c][r] == symbol) {
                     count++;
                 }
             }
@@ -72,9 +72,9 @@ public class Othello {
         // @formatter:on
 
         int sum = 0;
-        for (int i = 1; i <= size; i++) {
-            for (int j = 1; j <= size; j++) {
-                if (cBoard[i][j] == player) {
+        for (int i = 1; i <= boardSize; i++) {
+            for (int j = 1; j <= boardSize; j++) {
+                if (board[i][j] == player) {
                     sum += weights[i][j];
                 }
             }
@@ -86,37 +86,37 @@ public class Othello {
         return player == BoardField.BLACK ? BoardField.WHITE : BoardField.BLACK;
     }
 
-    public boolean wouldFlip(BoardField player, int r, int c, int dir) {
+    public boolean isMoveFlipping(BoardField player, int r, int c, int dir) {
         int row = r, col = c;
         boolean flag = false;
         for (int i = 0; i < 8; i++) {// in every direction 8 times
             row += dirR[dir];
             col += dirC[dir];
-            if (cBoard[row][col] == opponent(player)) {
+            if (board[row][col] == opponent(player)) {
                 flag = true;
-            } else if (cBoard[row][col] == player) {
+            } else if (board[row][col] == player) {
                 return flag;
             } else return false;
         }
         return false;
     }
 
-    public void makeFlip(BoardField player, int r, int c, int dir) {
-        if (wouldFlip(player, r, c, dir)) {
+    public void flip(BoardField player, int r, int c, int dir) {
+        if (isMoveFlipping(player, r, c, dir)) {
             r += dirR[dir];
             c += dirC[dir];
-            while (cBoard[r][c] != player) {
-                cBoard[r][c] = player;
+            while (board[r][c] != player) {
+                board[r][c] = player;
                 r += dirR[dir];
                 c += dirC[dir];
             }
         }
     }
 
-    public boolean validMove(BoardField player, int r, int c) {
-        if (cBoard[r][c] == BoardField.EMPTY) {
+    public boolean isValidMove(BoardField player, int r, int c) {
+        if (board[r][c] == BoardField.EMPTY) {
             for (int k = 0; k < 8; k++) {
-                if (wouldFlip(player, r, c, k)) {
+                if (isMoveFlipping(player, r, c, k)) {
                     return true;
                 }
             }
@@ -124,10 +124,10 @@ public class Othello {
         return false;
     }
 
-    public boolean anyLegalMove(BoardField player) {
-        for (int i = 1; i <= size; i++) {
-            for (int j = 1; j <= size; j++) {
-                if (validMove(player, i, j)) {
+    public boolean hasAnyMove(BoardField player) {
+        for (int i = 1; i <= boardSize; i++) {
+            for (int j = 1; j <= boardSize; j++) {
+                if (isValidMove(player, i, j)) {
                     return true;
                 }
             }
@@ -138,33 +138,33 @@ public class Othello {
     public void makeMove(BoardField player, OthelloMove m) {
         int r = m.getRow();
         int c = m.getCol();
-        if (validMove(player, r, c)) {
-            cBoard[r][c] = player;
-            for (int i = 0; i < size; i++) {
-                makeFlip(player, r, c, i);
+        if (isValidMove(player, r, c)) {
+            board[r][c] = player;
+            for (int i = 0; i < boardSize; i++) {
+                flip(player, r, c, i);
             }
         }
     }
 
-    public String boardToString(BoardField currentMove) {
+    public String toString(BoardField currentMove) {
         System.out.println(currentMove == BoardField.BLACK ? "Black's move." : "White's move.");
-        var possibleMoves = generateMoves(currentMove);
+        var possibleMoves = getPossibleMoves(currentMove);
 
         StringBuilder result;
 
         result = new StringBuilder("  ");
 
-        for (int i = 1; i <= size; i++) {
+        for (int i = 1; i <= boardSize; i++) {
             result.append(i).append(" ");
         }
         result.append(newline);
-        for (int y = 1; y <= size; y++) {
+        for (int y = 1; y <= boardSize; y++) {
             result.append(y).append(" ");
-            for (int x = 1; x <= size; x++) {
+            for (int x = 1; x <= boardSize; x++) {
                 String sign;
-                if (cBoard[y][x] == BoardField.WHITE) {
+                if (board[y][x] == BoardField.WHITE) {
                     sign = ConsoleColors.WHITE_BRIGHT + "■" + ConsoleColors.RESET;
-                } else if (cBoard[y][x] == BoardField.BLACK) {
+                } else if (board[y][x] == BoardField.BLACK) {
                     sign = ConsoleColors.BLACK + "■" + ConsoleColors.RESET;
                 } else {
                     int finalX = x;
@@ -183,11 +183,11 @@ public class Othello {
         return result.toString();
     }
 
-    public ArrayList<OthelloMove> generateMoves(BoardField player) {
+    public ArrayList<OthelloMove> getPossibleMoves(BoardField player) {
         ArrayList<OthelloMove> possibleMoves = new ArrayList<>();
-        for (int i = 1; i <= size; i++) {
-            for (int j = 1; j <= size; j++) {
-                if (validMove(player, i, j)) {
+        for (int i = 1; i <= boardSize; i++) {
+            for (int j = 1; j <= boardSize; j++) {
+                if (isValidMove(player, i, j)) {
                     OthelloMove aMove = new OthelloMove(i, j);
                     possibleMoves.add(aMove);
                 }
@@ -196,11 +196,11 @@ public class Othello {
         return possibleMoves;
     }
 
-    public BoardField[][] getBoardCopy() {
-        BoardField[][] newBoard = new BoardField[size + 2][size + 2];
+    public BoardField[][] getClone() {
+        BoardField[][] newBoard = new BoardField[boardSize + 2][boardSize + 2];
 
-        for (int i = 0; i < size + 2; i++) {
-            System.arraycopy(cBoard[i], 0, newBoard[i], 0, size);
+        for (int i = 0; i < boardSize + 2; i++) {
+            System.arraycopy(board[i], 0, newBoard[i], 0, boardSize);
         }
 
         return newBoard;
@@ -219,18 +219,18 @@ public class Othello {
 
             if(!silent) {
                 System.out.println("Turn #" + counter);
-                System.out.println(boardToString(currentMove));
+                System.out.println(toString(currentMove));
             }
 
             if (currentMove != BoardField.WHITE) {
 
                 move = p1.makeMove(this);
-                if (move.noMoves()) {
-                    if (anyLegalMove(p2.colour)) {
+                if (move.isEmptyMove()) {
+                    if (hasAnyMove(p2.colour)) {
                         if(!silent) {
                             System.out.println(p1.name + "'s (Black) move.");
                         }
-                        if (move.gameOver()) {
+                        if (move.isGameOver()) {
                             if(!silent) {
                                 System.out.println(p1.name + " concedes. Game Over!\n");
                             }
@@ -245,7 +245,7 @@ public class Othello {
                         if(!silent) {
                             System.out.println("Game over!\n");
                         }
-                        int difference = countSymbol(p1.colour) - countSymbol(p2.colour);
+                        int difference = countBoardFields(p1.colour) - countBoardFields(p2.colour);
                         if (difference < 0) {
                             if(!silent) {
                                 System.out.println(p2.name + " is the winner.");
@@ -273,12 +273,12 @@ public class Othello {
             } else {
                 move = p2.makeMove(this);
 
-                if (move.noMoves()) {
-                    if (anyLegalMove(p1.colour)) {
+                if (move.isEmptyMove()) {
+                    if (hasAnyMove(p1.colour)) {
                         if(!silent) {
                             System.out.println(p2.name + "'s (White) move.");
                         }
-                        if (move.gameOver()) {
+                        if (move.isGameOver()) {
                             if(!silent) {
                                 System.out.println(p1.name + " concedes. Game Over!\n");
                             }
@@ -293,7 +293,7 @@ public class Othello {
                         if(!silent) {
                             System.out.println("Game over!\n");
                         }
-                        int difference = countSymbol(p1.colour) - countSymbol(p2.colour);
+                        int difference = countBoardFields(p1.colour) - countBoardFields(p2.colour);
                         if (difference < 0) {
                             if(!silent) {
                                 System.out.println(p2.name + " is the winner.");

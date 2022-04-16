@@ -1,6 +1,6 @@
 public class OthelloMove {
     private int toRow, toCol;
-    private boolean noMove = false;
+    private boolean emptyMove = false;
     private boolean gameOver = false;
 
     public OthelloMove() {
@@ -24,21 +24,21 @@ public class OthelloMove {
         return toCol;
     }
 
-    public void concede() {
+    public void surrender() {
         gameOver = true;
-        noMove = true;
+        emptyMove = true;
     }
 
-    public void notAmove() {
-        noMove = true;
+    public void makeEmpty() {
+        emptyMove = true;
     }
 
-    public boolean gameOver() {
+    public boolean isGameOver() {
         return gameOver;
     }
 
-    public boolean noMoves() {
-        return noMove;
+    public boolean isEmptyMove() {
+        return emptyMove;
     }
 
 }
