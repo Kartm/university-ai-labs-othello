@@ -6,7 +6,7 @@ public class PenaltyRewardPlayer extends MinimaxPlayer {
 
     public PenaltyRewardPlayer(String pName, int ply, boolean abEnabled) {
         super(pName);
-        this.PLY = ply;
+        this.depth = ply;
         this.abEnabled = abEnabled;
     }
 

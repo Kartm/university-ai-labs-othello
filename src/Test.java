@@ -46,8 +46,8 @@ public class Test {
         var result = game.play(p1, p2, false);
 
         var progress = String.format("%d/%d", 2 * players.length + 13, players.length * players.length);
-        var p1_label = String.format("%s\t%s\t%d\t%s", char_a, p1.name, p1.getPLY(), p1.abEnabled);
-        var p2_label = String.format("%s\t%s\t%d\t%s", char_b, p2.name, p2.getPLY(), p2.abEnabled);
+        var p1_label = String.format("%s\t%s\t%d\t%s", char_a, p1.name, p1.getDepth(), p1.abEnabled);
+        var p2_label = String.format("%s\t%s\t%d\t%s", char_b, p2.name, p2.getDepth(), p2.abEnabled);
         System.out.printf("%s\t%s\t%s\t%s\t%d\t%d%n", progress, p1_label, p2_label, result == BoardField.BLACK ? p1_label : p2_label, p1.timeSoFar, p2.timeSoFar);
     }
 
@@ -67,8 +67,8 @@ public class Test {
                 var result = game.play(p1, p2, true);
 
                 var progress = String.format("%d/%d", i * players.length + j, (players.length / 2) * (players.length / 2));
-                var p1_label = String.format("%s\t%s\t%d\t%s", char_a, p1.name, p1.getPLY(), p1.abEnabled);
-                var p2_label = String.format("%s\t%s\t%d\t%s", char_b, p2.name, p2.getPLY(), p2.abEnabled);
+                var p1_label = String.format("%s\t%s\t%d\t%s", char_a, p1.name, p1.getDepth(), p1.abEnabled);
+                var p2_label = String.format("%s\t%s\t%d\t%s", char_b, p2.name, p2.getDepth(), p2.abEnabled);
                 System.out.printf("%s\t%s\t%s\t%s\t%d\t%d%n", progress, p1_label, p2_label, result == BoardField.BLACK ? p1_label : p2_label, p1.timeSoFar, p2.timeSoFar);
             }
         }
@@ -90,76 +90,65 @@ public class Test {
                 var result = game.play(p1, p2, true);
 
                 var progress = String.format("%d/%d", i * players.length + j, players.length * players.length);
-                var p1_label = String.format("%s\t%s\t%d\t%s", char_a, p1.name, p1.getPLY(), p1.abEnabled);
-                var p2_label = String.format("%s\t%s\t%d\t%s", char_b, p2.name, p2.getPLY(), p2.abEnabled);
+                var p1_label = String.format("%s\t%s\t%d\t%s", char_a, p1.name, p1.getDepth(), p1.abEnabled);
+                var p2_label = String.format("%s\t%s\t%d\t%s", char_b, p2.name, p2.getDepth(), p2.abEnabled);
                 System.out.printf("%s\t%s\t%s\t%s\t%d\t%d%n", progress, p1_label, p2_label, result == BoardField.BLACK ? p1_label : p2_label, p1.timeSoFar, p2.timeSoFar);
             }
         }
     }
 
     public static void custom() {
-        Player p1 = new HumanPlayer("HumanPlayer");
-        Player p2 = new PenaltyRewardPlayer("PenaltyRewardPlayer");
-        int first, second, ply1 = 4, ply2 = 4;
-        boolean abEnabled = false;
-        boolean flag = true;
-        String astr = """
-
+        System.out.println("""
                 Choose the players. Available options:\s
                 1. HumanPlayer\s
                 2. PenaltyRewardPlayer, AI\s
                 3. LeastMovesPlayer, AI
-                """;
-        System.out.println(astr);
+                """);
 
         Scanner scanner = new Scanner(System.in);
-        while (flag) {
-            flag = false;
-            System.out.print("Please choose for the first player: ");
-            first = scanner.nextInt();
-            if (first != 1) {
-                System.out.print("Please specify the ply: ");
-                ply1 = scanner.nextInt();
 
-                System.out.print("Please specify if alphabeta prunning enabled: ");
-                abEnabled = scanner.nextInt() == 1;
-            }
-            switch (first) {
-                case 1 -> p1 = new HumanPlayer("Human");
-                case 2 -> p1 = new PenaltyRewardPlayer("PenaltyRewardPlayer", ply1, abEnabled);
-                case 3 -> p1 = new LeastMovesPlayer("LeastMovesPlayer", ply1, abEnabled);
-                default -> {
-                    flag = true;
-                    System.out.print("Invalid input! Please input again!\n");
+        Player[] players = new Player[2];
+
+        int playersSelected = 0;
+        while (playersSelected < 2) {
+            System.out.printf("Please choose for the %s player: %n", playersSelected == 0 ? "first":"second");
+            int playerIndex = scanner.nextInt(); // 1-3
+            int depthInput = 0;
+            int abInput = -1;
+            if (playerIndex > 1) {
+                if(depthInput < 1 || depthInput > 3) {
+                    System.out.print("Please specify the depth: ");
+                    depthInput = scanner.nextInt();
+                }
+
+                if(abInput < 0 || abInput > 1) {
+                    System.out.print("Please specify if alphabeta prunning enabled: ");
+                    abInput = scanner.nextInt();
                 }
             }
-        }
-        flag = true;
-        while (flag) {
-            flag = false;
-            System.out.print("Please choose for the second player: ");
-            second = scanner.nextInt();
-            if (second != 1) {
-                System.out.print("Please specify the ply: ");
-                ply2 = scanner.nextInt();
 
-                System.out.print("Please specify if alphabeta prunning enabled: ");
-                abEnabled = scanner.nextInt() == 1;
-            }
-            switch (second) {
-                case 1 -> p2 = new HumanPlayer("Human");
-                case 2 -> p2 = new PenaltyRewardPlayer("PenaltyRewardPlayer", ply2, abEnabled);
-                case 3 -> p2 = new LeastMovesPlayer("LeastMovesPlayer", ply2, abEnabled);
-                default -> {
-                    flag = true;
+            switch (playerIndex) {
+                case 1:
+                    players[playersSelected] = new HumanPlayer("Human");
+                    playersSelected++;
+                    break;
+                case 2:
+                    players[playersSelected] = new PenaltyRewardPlayer("PenaltyRewardPlayer", depthInput, abInput == 1);
+                    playersSelected++;
+                    break;
+                case 3:
+                    players[playersSelected] = new LeastMovesPlayer("LeastMovesPlayer", depthInput, abInput == 1);
+                    playersSelected++;
+                    break;
+                default:
                     System.out.print("Invalid input! Please input again!\n");
-                }
+                    break;
             }
         }
 
         Othello game = new Othello();
 
-        game.play(p1, p2, false);
+        game.play(players[0], players[1], false);
 
     }
 

@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public abstract class MinimaxPlayer extends Player {
-    protected int PLY = 4; //the depth of the minimax
+    protected int depth = 4; //the depth of the minimax
     protected boolean abEnabled = false;
     public long startTime;
     public long endTime;
@@ -13,8 +13,8 @@ public abstract class MinimaxPlayer extends Player {
         colour = BoardField.EMPTY;
     }
 
-    public int getPLY() {
-        return PLY;
+    public int getDepth() {
+        return depth;
     }
 
     public void initialize(BoardField pColour) {
@@ -30,8 +30,6 @@ public abstract class MinimaxPlayer extends Player {
         endTime = System.nanoTime();
 
         timeSoFar += endTime - startTime;
-
-//        System.out.println(colour + ":" + timeSoFar);
 
         return move;
     }
@@ -50,7 +48,7 @@ public abstract class MinimaxPlayer extends Player {
         for (int i = 0; i < possibleMoves.size(); i++) {
             Othello newGame = new Othello(game);
             newGame.makeMove(colour, possibleMoves.get(i));
-            int tmp = abMinNoAlphaBeta(newGame, PLY);
+            int tmp = abMinNoAlphaBeta(newGame, depth);
             if (tmp > utility) {
                 utility = tmp;
                 best = i;
@@ -104,7 +102,7 @@ public abstract class MinimaxPlayer extends Player {
         for (int i = 0; i < possibleMoves.size(); i++) {
             Othello newGame = new Othello(game);
             newGame.makeMove(colour, possibleMoves.get(i));
-            int tmp = abMinAlphaBeta(newGame, utility, Integer.MAX_VALUE, PLY);
+            int tmp = abMinAlphaBeta(newGame, utility, Integer.MAX_VALUE, depth);
             if (tmp > utility) {
                 utility = tmp;
                 best = i;
