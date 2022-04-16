@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Test {
+public class Main {
     public static MinimaxPlayer[] players = new MinimaxPlayer[]{
             new PenaltyRewardPlayer("PenaltyRewardPlayer", 1, true),
             new PenaltyRewardPlayer("PenaltyRewardPlayer", 2, true),
