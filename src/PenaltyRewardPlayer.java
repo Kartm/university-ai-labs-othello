@@ -10,7 +10,7 @@ public class PenaltyRewardPlayer extends MinimaxPlayer {
         this.abEnabled = abEnabled;
     }
 
-    public int evaluationFn(Othello game) {
+    public int evaluateBoard(Othello game) {
         return game.PenaltyReward(colour) - game.PenaltyReward(game.opponent(colour));
     }
 }

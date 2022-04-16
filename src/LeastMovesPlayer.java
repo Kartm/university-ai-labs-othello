@@ -10,7 +10,7 @@ public class LeastMovesPlayer extends MinimaxPlayer {
         this.abEnabled = abEnabled;
     }
 
-    public int evaluationFn(Othello game) {
+    public int evaluateBoard(Othello game) {
         int myMoves = game.generateMoves(colour).size();
         int opponentMoves = game.generateMoves(game.opponent(colour)).size();
 
