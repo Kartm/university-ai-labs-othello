@@ -1,4 +1,4 @@
-public class PenaltyRewardPlayer extends MinimaxPlayer {
+public class PenaltyRewardPlayer extends AbstractMinimaxPlayer {
 
     public PenaltyRewardPlayer(String pName) {
         super(pName);
@@ -10,7 +10,7 @@ public class PenaltyRewardPlayer extends MinimaxPlayer {
         this.abEnabled = abEnabled;
     }
 
-    public int evaluateBoard(Othello game) {
+    public int evaluateBoard(Game game) {
         return game.PenaltyReward(colour) - game.PenaltyReward(game.opponent(colour));
     }
 }

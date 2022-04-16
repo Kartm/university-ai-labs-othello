@@ -1,10 +1,7 @@
 import java.util.Scanner;
 import java.lang.String;
 
-public class HumanPlayer extends Player {
-
-    public HumanPlayer() {
-    }
+public class HumanPlayer extends AbstractPlayer {
 
     public HumanPlayer(String pName) {
         super(pName);
@@ -14,14 +11,14 @@ public class HumanPlayer extends Player {
         colour = pColour;
     }
 
-    public OthelloMove makeMove(Othello game) {
+    public GameMove makeMove(Game game) {
 
         boolean validInput = false;
-        OthelloMove humanMove = null;
+        GameMove humanMove = null;
         Scanner scanner = new Scanner(System.in);
         int col, row;
         if (game.hasAnyMove(colour) == false) {
-            OthelloMove noMove = new OthelloMove(0, 0);
+            GameMove noMove = new GameMove(0, 0);
             noMove.makeEmpty();
             System.out.println("Here!! no valid moves!\n");///////////////////////////////////
             return noMove;
@@ -33,7 +30,7 @@ public class HumanPlayer extends Player {
                 row = scanner.nextInt();
                 // If the game is conceded
                 if (row == -1) {
-                    OthelloMove gameOver = new OthelloMove(0, 0);
+                    GameMove gameOver = new GameMove(0, 0);
                     gameOver.surrender();
                     return gameOver;
                 } else {
@@ -41,7 +38,7 @@ public class HumanPlayer extends Player {
                     // if we reach here the player has entered valid input
                     // we now need to check if this is a valid move
                     if (game.isValidMove(colour, row, col)) {
-                        humanMove = new OthelloMove(row, col);
+                        humanMove = new GameMove(row, col);
                         validInput = true;
                     } else System.out.println("Invalid Move!");
                 }

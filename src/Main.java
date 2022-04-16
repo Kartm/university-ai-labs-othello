@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Main {
-    public static MinimaxPlayer[] players = new MinimaxPlayer[]{
+    public static AbstractMinimaxPlayer[] players = new AbstractMinimaxPlayer[]{
             new PenaltyRewardPlayer("PenaltyRewardPlayer", 1, true),
             new PenaltyRewardPlayer("PenaltyRewardPlayer", 2, true),
             new PenaltyRewardPlayer("PenaltyRewardPlayer", 3, true),
@@ -42,7 +42,7 @@ public class Main {
         p1.timeSoFar = 0;
         p2.timeSoFar = 0;
 
-        Othello game = new Othello();
+        Game game = new Game();
         var result = game.play(p1, p2, false);
 
         var progress = String.format("%d/%d", 2 * players.length + 13, players.length * players.length);
@@ -63,7 +63,7 @@ public class Main {
                 p1.timeSoFar = 0;
                 p2.timeSoFar = 0;
 
-                Othello game = new Othello();
+                Game game = new Game();
                 var result = game.play(p1, p2, true);
 
                 var progress = String.format("%d/%d", i * players.length + j, (players.length / 2) * (players.length / 2));
@@ -86,7 +86,7 @@ public class Main {
                 p1.timeSoFar = 0;
                 p2.timeSoFar = 0;
 
-                Othello game = new Othello();
+                Game game = new Game();
                 var result = game.play(p1, p2, true);
 
                 var progress = String.format("%d/%d", i * players.length + j, players.length * players.length);
@@ -107,7 +107,7 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
 
-        Player[] players = new Player[2];
+        AbstractPlayer[] players = new AbstractPlayer[2];
 
         int playersSelected = 0;
         while (playersSelected < 2) {
@@ -146,7 +146,7 @@ public class Main {
             }
         }
 
-        Othello game = new Othello();
+        Game game = new Game();
 
         game.play(players[0], players[1], false);
 

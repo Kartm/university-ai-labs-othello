@@ -1,7 +1,7 @@
 import java.lang.String;
 import java.util.ArrayList;
 
-public class Othello {
+public class Game {
     private static final int boardSize = 8;
     private BoardField[][] board;
     public static String newline = System.getProperty("line.separator");
@@ -9,12 +9,12 @@ public class Othello {
     private static final int[] dirR = {-1, 1, 0, 0, 1, -1, 1, -1};
     private static final int[] dirC = {0, 0, 1, -1, 1, -1, -1, 1};
 
-    public Othello() {
+    public Game() {
         board = new BoardField[boardSize + 2][boardSize + 2];
         initialize();
     }
 
-    public Othello(int n, BoardField[][] workingBoard) {
+    public Game(int n, BoardField[][] workingBoard) {
         if (n != boardSize + 2) {
             System.out.println(" Invalid game board!");
         } else {
@@ -22,7 +22,7 @@ public class Othello {
         }
     }
 
-    public Othello(Othello k) {
+    public Game(Game k) {
         board = k.getClone();
     }
 
@@ -135,7 +135,7 @@ public class Othello {
         return false;
     }
 
-    public void makeMove(BoardField player, OthelloMove m) {
+    public void makeMove(BoardField player, GameMove m) {
         int r = m.getRow();
         int c = m.getCol();
         if (isValidMove(player, r, c)) {
@@ -183,12 +183,12 @@ public class Othello {
         return result.toString();
     }
 
-    public ArrayList<OthelloMove> getPossibleMoves(BoardField player) {
-        ArrayList<OthelloMove> possibleMoves = new ArrayList<>();
+    public ArrayList<GameMove> getPossibleMoves(BoardField player) {
+        ArrayList<GameMove> possibleMoves = new ArrayList<>();
         for (int i = 1; i <= boardSize; i++) {
             for (int j = 1; j <= boardSize; j++) {
                 if (isValidMove(player, i, j)) {
-                    OthelloMove aMove = new OthelloMove(i, j);
+                    GameMove aMove = new GameMove(i, j);
                     possibleMoves.add(aMove);
                 }
             }
@@ -206,14 +206,14 @@ public class Othello {
         return newBoard;
     }
 
-    public BoardField play(Player p1, Player p2, boolean silent) {
+    public BoardField play(AbstractPlayer p1, AbstractPlayer p2, boolean silent) {
         p1.initialize(BoardField.BLACK);
         p2.initialize(BoardField.WHITE);
         BoardField currentMove = BoardField.BLACK;
         int counter = 0;
 
         while (true) {
-            OthelloMove move;
+            GameMove move;
 
             counter++;
 

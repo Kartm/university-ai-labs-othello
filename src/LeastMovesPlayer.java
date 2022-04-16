@@ -1,4 +1,4 @@
-public class LeastMovesPlayer extends MinimaxPlayer {
+public class LeastMovesPlayer extends AbstractMinimaxPlayer {
 
     public LeastMovesPlayer(String pName) {
         super(pName);
@@ -10,7 +10,7 @@ public class LeastMovesPlayer extends MinimaxPlayer {
         this.abEnabled = abEnabled;
     }
 
-    public int evaluateBoard(Othello game) {
+    public int evaluateBoard(Game game) {
         int myMoves = game.getPossibleMoves(colour).size();
         int opponentMoves = game.getPossibleMoves(game.opponent(colour)).size();
 
