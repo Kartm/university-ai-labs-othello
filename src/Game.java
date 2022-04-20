@@ -232,7 +232,7 @@ public class Game {
                         }
                         if (move.isGameOver()) {
                             if(!silent) {
-                                System.out.println(p1.name + " concedes. Game Over!\n");
+                                System.out.println(p1.name + " surrenders. Game Over!\n");
                             }
                             return p2.colour;
                         } else {
@@ -280,7 +280,7 @@ public class Game {
                         }
                         if (move.isGameOver()) {
                             if(!silent) {
-                                System.out.println(p1.name + " concedes. Game Over!\n");
+                                System.out.println(p1.name + " surrenders. Game Over!\n");
                             }
                             return p2.colour; // ?
                         } else {

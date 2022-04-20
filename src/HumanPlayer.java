@@ -25,7 +25,7 @@ public class HumanPlayer extends AbstractPlayer {
         }
         // repeat until the player enters a valid move
         while (!validInput) {
-            System.out.println("Enter row  col (or -1 to concede): ");
+            System.out.println("Enter row  col (or -1 to surrender): ");
             try {
                 row = scanner.nextInt();
                 // If the game is conceded
